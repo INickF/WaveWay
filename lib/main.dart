@@ -18,10 +18,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         routes: {
-          "/": (context) => const RegistrationPage(),
+          "/": (context) => const LoginPage(),
           "/login": (context) => const LoginPage(),
           "/register": (context) => const RegistrationPage(),
         });
-        
   }
 }
