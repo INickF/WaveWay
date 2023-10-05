@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'pages/registration_page.dart';
 import 'pages/login_page.dart';
+import 'pages/main_page.dart';
+import 'api/storage_api.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final userData = await StorageApi.read("UserData");
+  print(userData);
+
+  runApp(const WaveWayApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class WaveWayApp extends StatelessWidget {
+  const WaveWayApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'WaveWay',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
           useMaterial3: true,
@@ -21,6 +28,7 @@ class MyApp extends StatelessWidget {
           "/": (context) => const LoginPage(),
           "/login": (context) => const LoginPage(),
           "/register": (context) => const RegistrationPage(),
+          "/main": (context) => const MainPage(),
         });
   }
 }

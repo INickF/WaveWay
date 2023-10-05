@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import '../api/user_api.dart';
+import '../models/user_data.dart';
 import '../widgets/wave_app_bar.dart';
 import '../widgets/wave_input_field.dart';
 import '../widgets/wave_simple_button.dart';
 import '../widgets/wave_style_text.dart';
+import '../api/storage_api.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -31,7 +34,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           SizedBox(height: deviceHeight * 0.05),
           WaveSimpleButton(
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil("/login", (route) => false);
+                Navigator.of(context).pushReplacementNamed("/login");
               },
               text: "Already have an account? Log in!",
               fontSize: 18),
@@ -85,7 +88,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
         const SizedBox(height: 10),
         TextButton(
-          onPressed: () {}, //TODO: implement registration button functionality
+          onPressed: () async {
+            UserData? user = await UserApi.registration(
+              controllerEmail.text,
+              controllerName.text,
+              controllerPassword.text,
+            );
+            if (user == null) return; // TODO: Add snackbar in future
+            StorageApi.write("UserData", user.toRawJson());
+          },
           child: const WaveStyleText(
             text: "Register",
             fontSize: 26,

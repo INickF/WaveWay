@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import '../api/user_api.dart';
+import '../models/user_data.dart';
 import '../widgets/wave_app_bar.dart';
 import '../widgets/wave_input_field.dart';
 import '../widgets/wave_simple_button.dart';
 import '../widgets/wave_style_text.dart';
+import '../api/storage_api.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -33,7 +36,7 @@ class _RegistrationPageState extends State<LoginPage> {
             SizedBox(height: deviceHeight * 0.05),
             WaveSimpleButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil("/register", (route) => false);
+                  Navigator.of(context).pushReplacementNamed("/register");
                 },
                 text: "Don`t have an account? Register!",
                 fontSize: 18),
@@ -77,7 +80,14 @@ class _RegistrationPageState extends State<LoginPage> {
         ),
         const SizedBox(height: 10),
         TextButton(
-          onPressed: () {}, //TODO: implement login button functionality
+          onPressed: () async {
+            UserData? user = await UserApi.login(
+              controllerEmail.text,
+              controllerPassword.text,
+            );
+            if (user == null) return; // TODO: Add snackbar in future
+            StorageApi.write("UserData", user.toRawJson());
+          },
           child: const WaveStyleText(
             text: "Login",
             fontSize: 26,
