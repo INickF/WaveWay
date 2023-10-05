@@ -15,6 +15,7 @@ dependencies:
   http: ^1.1.0
   shared_preferences: ^2.2.1
   flutter_secure_storage: ^9.0.0
+  flutter_native_splash: ^2.3.3
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +28,12 @@ flutter_launcher_icons:
   android: "launcher_icon"
   image_path: "assets/images/waves.png"
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/images/waves.png"
+  android: true
+  ios: false
+  web: false
 
 flutter:
 

@@ -1,3 +1,4 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter/material.dart';
 import '../api/user_api.dart';
 import '../models/user_data.dart';
@@ -17,6 +18,12 @@ class LoginPage extends StatefulWidget {
 class _RegistrationPageState extends State<LoginPage> {
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
+  }
 
   @override
   Widget build(BuildContext context) {
